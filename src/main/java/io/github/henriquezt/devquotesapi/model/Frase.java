@@ -16,4 +16,13 @@ public class Frase {
     public String getFrase() {
         return frase;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFrase(String frase) {
+        this.frase = frase;
+    }
+
 }

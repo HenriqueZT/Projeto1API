@@ -1,9 +1,7 @@
 package io.github.henriquezt.devquotesapi.controller;
 
 import io.github.henriquezt.devquotesapi.model.Frase;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +30,10 @@ public class FraseController {
             }
         }
         return null;
+    }
+
+    @PostMapping("/frases")
+    public void criarFrase(@RequestBody Frase frase) {
+        frases.add(frase);
     }
 }
