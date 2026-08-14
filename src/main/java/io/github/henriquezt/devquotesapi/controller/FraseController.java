@@ -45,4 +45,13 @@ public class FraseController {
         }
         return fraseEncontrada;
     }
+
+    @DeleteMapping("/frases/{id}")
+    public void deletarPorId(@PathVariable int id) {
+        Frase fraseEncontrada = buscarPorId(id);
+
+        if(fraseEncontrada != null) {
+            frases.remove(fraseEncontrada);
+        }
+    }
 }
