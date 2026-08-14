@@ -36,4 +36,13 @@ public class FraseController {
     public void criarFrase(@RequestBody Frase frase) {
         frases.add(frase);
     }
+
+    @PutMapping("/frases/{id}")
+    public Frase atualizarPorId(@PathVariable int id, @RequestBody Frase frase) {
+        Frase fraseEncontrada = buscarPorId(id);
+        if(fraseEncontrada != null) {
+            fraseEncontrada.setFrase(frase.getFrase());
+        }
+        return fraseEncontrada;
+    }
 }
