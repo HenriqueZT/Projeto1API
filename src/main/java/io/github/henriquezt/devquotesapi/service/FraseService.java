@@ -1,52 +1,37 @@
 package io.github.henriquezt.devquotesapi.service;
 
 import io.github.henriquezt.devquotesapi.model.Frase;
+import io.github.henriquezt.devquotesapi.repository.FraseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class FraseService {
 
-    private List<Frase> frases = new ArrayList<>();
+    private FraseRepository fraseRepository;
 
-    public FraseService() {
-        frases.add(new Frase(1, "Hora de tomar café"));
-        frases.add(new Frase(2, "Olá Mundo!"));
-        frases.add(new Frase(3, "Codar deixa careca"));
+    public FraseService(FraseRepository fraseRepository) {
+        this.fraseRepository = fraseRepository;
     }
 
     public List<Frase> listarFrases() {
-        return frases;
+        return fraseRepository.listarFrases();
     }
 
     public Frase buscarPorId( int id) {
-        for(Frase frase : frases) {
-            if(frase.getId() == id) {
-                return frase;
-            }
-        }
-        return null;
+        return fraseRepository.buscarPorId(id);
     }
 
     public void criarFrase(Frase frase) {
-        frases.add(frase);
+        fraseRepository.criarFrase(frase);
     }
 
     public Frase atualizarPorId(int id, Frase frase) {
-        Frase fraseEncontrada = buscarPorId(id);
-        if (fraseEncontrada != null) {
-            fraseEncontrada.setFrase(frase.getFrase());
-        }
-        return fraseEncontrada;
+        return fraseRepository.atualizarPorId(id, frase);
     }
 
     public void deletarPorId(int id) {
-        Frase fraseEncontrada = buscarPorId(id);
-
-        if(fraseEncontrada != null) {
-            frases.remove(fraseEncontrada);
-        }
+        fraseRepository.deletarPorId(id);
     }
 }
