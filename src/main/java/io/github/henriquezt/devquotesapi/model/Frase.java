@@ -1,15 +1,27 @@
 package io.github.henriquezt.devquotesapi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Frase {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String frase;
 
-    public Frase(int id, String frase) {
+    public Frase() {
+    }
+
+    public Frase(Integer id, String frase) {
         this.id = id;
         this.frase = frase;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -17,7 +29,7 @@ public class Frase {
         return frase;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

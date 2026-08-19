@@ -4,7 +4,7 @@ import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.service.FraseService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class FraseController {
@@ -16,18 +16,18 @@ public class FraseController {
     }
 
     @GetMapping("/frases")
-    public List<Frase> listarFrases() {
+    public Iterable<Frase> listarFrases() {
         return fraseService.listarFrases();
     }
 
     @GetMapping("/frases/{id}")
-    public Frase buscarPorId(@PathVariable int id) {
+    public Optional<Frase> buscarPorId(@PathVariable int id) {
         return fraseService.buscarPorId(id);
     }
 
     @PostMapping("/frases")
-    public void criarFrase(@RequestBody Frase frase) {
-        fraseService.criarFrase(frase);
+    public Frase criarFrase(@RequestBody Frase frase) {
+        return fraseService.salvar(frase);
     }
 
     @PutMapping("/frases/{id}")

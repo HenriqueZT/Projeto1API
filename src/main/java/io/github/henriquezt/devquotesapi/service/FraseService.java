@@ -4,7 +4,8 @@ import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.repository.FraseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.swing.text.html.parser.Entity;
+import java.util.Optional;
 
 @Service
 public class FraseService {
@@ -15,23 +16,32 @@ public class FraseService {
         this.fraseRepository = fraseRepository;
     }
 
-    public List<Frase> listarFrases() {
-        return fraseRepository.listarFrases();
+    public Iterable<Frase> listarFrases() {
+        return fraseRepository.findAll();
     }
 
-    public Frase buscarPorId( int id) {
-        return fraseRepository.buscarPorId(id);
+    public Optional<Frase> buscarPorId (Integer id) {
+        return fraseRepository.findById(id);
     }
 
-    public void criarFrase(Frase frase) {
-        fraseRepository.criarFrase(frase);
+    public Frase salvar(Frase entity) {
+        return fraseRepository.save(entity);
     }
 
-    public Frase atualizarPorId(int id, Frase frase) {
-        return fraseRepository.atualizarPorId(id, frase);
+    public Frase atualizarPorId(Integer id, Frase frase) {
+        Optional<Frase> fraseEncontrada = fraseRepository.findById(id);
+
+        if(fraseEncontrada.isPresent()) {
+            Frase fraseAtual = fraseEncontrada.get();
+            fraseAtual.setFrase(frase.getFrase());
+
+            return fraseRepository.save(fraseAtual);
+        }
+
+        return null;
     }
 
-    public void deletarPorId(int id) {
-        fraseRepository.deletarPorId(id);
+    public void deletarPorId(Integer id) {
+        fraseRepository.deleteById(id);
     }
 }
