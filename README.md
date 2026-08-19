@@ -25,3 +25,14 @@
 - Integração com MySQL
 - Criação automática da tabela com `@Entity`
 - Uso do `CrudRepository`
+
+## Tecnologias
+
+- Java 25
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- MySQL
+- Maven
+- Postman
