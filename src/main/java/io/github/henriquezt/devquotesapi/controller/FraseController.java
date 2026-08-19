@@ -21,6 +21,11 @@ public class FraseController {
         return fraseService.buscarPorFrase(frase);
     }
 
+    @GetMapping("/frases/buscar-contendo")
+    public List<Frase> buscarPorFraseContida(@RequestParam String palavra) {
+        return fraseService.buscarPorFraseContida(palavra);
+    }
+
     @GetMapping("/frases")
     public Iterable<Frase> listarFrases() {
         return fraseService.listarFrases();

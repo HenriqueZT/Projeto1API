@@ -20,6 +20,10 @@ public class FraseService {
         return fraseRepository.findByFrase(frase);
     }
 
+    public List<Frase> buscarPorFraseContida(String palavra) {
+        return fraseRepository.findByFraseContaining(palavra);
+    }
+
     public Iterable<Frase> listarFrases() {
         return fraseRepository.findAll();
     }

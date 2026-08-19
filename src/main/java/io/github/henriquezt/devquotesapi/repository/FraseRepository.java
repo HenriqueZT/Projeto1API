@@ -10,4 +10,5 @@ import java.util.List;
 public interface FraseRepository extends CrudRepository<Frase, Integer> {
 
     List<Frase> findByFrase(String frase);
+    List<Frase> findByFraseContaining(String palavra);
 }
