@@ -7,10 +7,21 @@
 
 ### Etapa 2
 - Criação do primeiro Controller
-- Primeiro endpoint GET (/frases)
+- Primeiro endpoint GET (`/frases`)
+- Retorno de JSON
 
 ### Etapa 3
-- Retorno de objetos JSON
+- Implementação do CRUD completo
+- Integração com Postman
+- Organização em camadas:
+  - Controller
+  - Service
+  - Repository
 
 ### Etapa 4
-- CRUD completo
+- Migração da persistência em memória (`ArrayList`) para banco de dados
+- Introdução ao Spring Data JPA
+- Configuração do Hibernate
+- Integração com MySQL
+- Criação automática da tabela com `@Entity`
+- Uso do `CrudRepository`
