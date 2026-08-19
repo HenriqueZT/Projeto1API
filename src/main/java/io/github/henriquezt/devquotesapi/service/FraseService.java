@@ -4,7 +4,7 @@ import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.repository.FraseRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +14,10 @@ public class FraseService {
 
     public FraseService(FraseRepository fraseRepository) {
         this.fraseRepository = fraseRepository;
+    }
+
+    public List<Frase> buscarPorFrase(String frase) {
+        return fraseRepository.findByFrase(frase);
     }
 
     public Iterable<Frase> listarFrases() {

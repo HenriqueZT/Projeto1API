@@ -4,6 +4,7 @@ import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.service.FraseService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -13,6 +14,11 @@ public class FraseController {
 
     public FraseController(FraseService fraseService) {
         this.fraseService = fraseService;
+    }
+
+    @GetMapping("/frases/buscar")
+    public List<Frase> buscarPorFrase(@RequestParam String frase) {
+        return fraseService.buscarPorFrase(frase);
     }
 
     @GetMapping("/frases")
