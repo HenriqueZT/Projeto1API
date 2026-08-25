@@ -2,6 +2,7 @@ package io.github.henriquezt.devquotesapi.service;
 
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.repository.FraseRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class FraseService {
         return fraseRepository.findByFraseContainingIgnoreCase(palavra);
     }
 
-    public Iterable<Frase> listarFrases() {
-        return fraseRepository.findAll();
+    public List<Frase> listarFrases() {
+        return fraseRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public Optional<Frase> buscarPorId (Integer id) {

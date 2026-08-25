@@ -27,7 +27,7 @@ public class FraseController {
     }
 
     @GetMapping("/frases")
-    public Iterable<Frase> listarFrases() {
+    public List<Frase> listarFrases() {
         return fraseService.listarFrases();
     }
 
