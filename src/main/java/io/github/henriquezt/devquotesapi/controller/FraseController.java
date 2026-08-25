@@ -2,6 +2,7 @@ package io.github.henriquezt.devquotesapi.controller;
 
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.service.FraseService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,11 @@ public class FraseController {
     @GetMapping("/frases")
     public List<Frase> listarFrases() {
         return fraseService.listarFrases();
+    }
+
+    @GetMapping("/frases/paginadas")
+    public Page<Frase> listarFrasesPaginadas(@RequestParam int pagina, @RequestParam int tamanho) {
+        return fraseService.listarFrasesPaginadas(pagina, tamanho);
     }
 
     @GetMapping("/frases/{id}")

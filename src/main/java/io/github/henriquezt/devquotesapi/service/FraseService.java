@@ -2,6 +2,9 @@ package io.github.henriquezt.devquotesapi.service;
 
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.repository.FraseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,11 @@ public class FraseService {
 
     public List<Frase> listarFrases() {
         return fraseRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
+
+    public Page<Frase> listarFrasesPaginadas(int pagina, int tamanho) {
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(Sort.Direction.DESC, "id"));
+        return fraseRepository.findAll(pageable);
     }
 
     public Optional<Frase> buscarPorId (Integer id) {
