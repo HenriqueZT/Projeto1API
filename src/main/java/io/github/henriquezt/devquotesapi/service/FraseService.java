@@ -21,7 +21,7 @@ public class FraseService {
     }
 
     public List<Frase> buscarPorFraseContida(String palavra) {
-        return fraseRepository.findByFraseContaining(palavra);
+        return fraseRepository.findByFraseContainingIgnoreCase(palavra);
     }
 
     public Iterable<Frase> listarFrases() {
