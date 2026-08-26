@@ -4,6 +4,7 @@ import io.github.henriquezt.devquotesapi.dto.FraseRequestDTO;
 import io.github.henriquezt.devquotesapi.dto.FraseResponseDTO;
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.service.FraseService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +59,7 @@ public class FraseController {
     }
 
     @PostMapping("/frases")
-    public FraseResponseDTO criarFrase(@RequestBody FraseRequestDTO dto) {
+    public FraseResponseDTO criarFrase(@Valid @RequestBody FraseRequestDTO dto) {
         Frase frase = converterParaEntity(dto);
         Frase fraseSalva = fraseService.salvar(frase);
 
@@ -66,7 +67,7 @@ public class FraseController {
     }
 
     @PutMapping("/frases/{id}")
-    public FraseResponseDTO atualizarPorId(@PathVariable int id, @RequestBody FraseRequestDTO dto) {
+    public FraseResponseDTO atualizarPorId(@PathVariable int id, @Valid @RequestBody FraseRequestDTO dto) {
         Frase frase = converterParaEntity(dto);
         Frase fraseAtualizada = fraseService.atualizarPorId(id, frase);
 
