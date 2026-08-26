@@ -20,12 +20,11 @@ public class FraseController {
     }
 
     @GetMapping("/frases/buscar")
-    public List<FraseResponseDTO> buscarPorFrase(@RequestParam String frase)
-    {
+    public List<FraseResponseDTO> buscarPorFrase(@RequestParam String frase) {
         List<Frase> fraseBuscada = fraseService.buscarPorFrase(frase);
 
         return fraseBuscada.stream().map(
-                fraseEncontrada -> new FraseResponseDTO(fraseEncontrada.getId(), fraseEncontrada.getFrase())).toList();
+                this::converterParaResponseDTO).toList();
     }
 
     @GetMapping("/frases/buscar-contendo")
@@ -33,7 +32,7 @@ public class FraseController {
         List<Frase> fraseContida = fraseService.buscarPorFraseContida(palavra);
 
         return fraseContida.stream().map(
-                frase -> new FraseResponseDTO(frase.getId(), frase.getFrase())).toList();
+                this::converterParaResponseDTO).toList();
     }
 
     @GetMapping("/frases")
@@ -41,49 +40,37 @@ public class FraseController {
         List<Frase> frases = fraseService.listarFrases();
 
         return frases.stream().map(
-                frase -> new FraseResponseDTO(frase.getId(), frase.getFrase())).toList();
+                this::converterParaResponseDTO).toList();
     }
 
     @GetMapping("/frases/paginadas")
     public Page<FraseResponseDTO> listarFrasesPaginadas(@RequestParam int pagina, @RequestParam int tamanho) {
         Page<Frase> frasePaginada = fraseService.listarFrasesPaginadas(pagina, tamanho);
 
-        return frasePaginada.map(frase -> new FraseResponseDTO(frase.getId(), frase.getFrase()));
+        return frasePaginada.map(this::converterParaResponseDTO);
     }
 
     @GetMapping("/frases/{id}")
     public Optional<FraseResponseDTO> buscarPorId(@PathVariable int id) {
         Optional<Frase> fraseSalva = fraseService.buscarPorId(id);
 
-        return fraseSalva.map(frase -> new FraseResponseDTO(frase.getId(), frase.getFrase()));
+        return fraseSalva.map(this::converterParaResponseDTO);
     }
 
     @PostMapping("/frases")
-    public FraseResponseDTO criarFrase(@RequestBody FraseRequestDTO dto)
-    {
-        Frase frase = new Frase();
-        frase.setFrase(dto.getFrase());
-
+    public FraseResponseDTO criarFrase(@RequestBody FraseRequestDTO dto) {
+        Frase frase = converterParaEntity(dto);
         Frase fraseSalva = fraseService.salvar(frase);
 
-        FraseResponseDTO resposta = new FraseResponseDTO();
-        resposta.setId(fraseSalva.getId());
-        resposta.setFrase(fraseSalva.getFrase());
-
-        return resposta;
+        return converterParaResponseDTO(fraseSalva);
     }
 
     @PutMapping("/frases/{id}")
     public FraseResponseDTO atualizarPorId(@PathVariable int id, @RequestBody FraseRequestDTO dto) {
-        Frase frase = new Frase();
-        frase.setFrase(dto.getFrase());
-
+        Frase frase = converterParaEntity(dto);
         Frase fraseAtualizada = fraseService.atualizarPorId(id, frase);
 
-        FraseResponseDTO resposta = new FraseResponseDTO();
-        resposta.setId(fraseAtualizada.getId());
-        resposta.setFrase(fraseAtualizada.getFrase());
-        return resposta;
+        return converterParaResponseDTO(fraseAtualizada);
     }
 
     @DeleteMapping("/frases/{id}")
@@ -91,4 +78,17 @@ public class FraseController {
         fraseService.deletarPorId(id);
     }
 
+    private FraseResponseDTO converterParaResponseDTO(Frase frase) {
+        return new FraseResponseDTO(
+                frase.getId(),
+                frase.getFrase()
+        );
+    }
+
+    private Frase converterParaEntity(FraseRequestDTO dto) {
+        Frase frase = new Frase();
+        frase.setFrase(dto.getFrase());
+
+        return frase;
+    }
 }
