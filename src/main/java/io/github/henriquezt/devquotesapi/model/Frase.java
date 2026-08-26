@@ -19,8 +19,7 @@ public class Frase {
     @Setter
     private String frase;
 
-    public Frase(Integer id, String frase) {
-        this.id = id;
+    public Frase(String frase) {
         this.frase = frase;
     }
 }

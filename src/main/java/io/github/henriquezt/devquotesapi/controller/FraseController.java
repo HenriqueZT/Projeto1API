@@ -1,5 +1,7 @@
 package io.github.henriquezt.devquotesapi.controller;
 
+import io.github.henriquezt.devquotesapi.dto.FraseRequestDTO;
+import io.github.henriquezt.devquotesapi.dto.FraseResponseDTO;
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.service.FraseService;
 import org.springframework.data.domain.Page;
@@ -38,13 +40,25 @@ public class FraseController {
     }
 
     @GetMapping("/frases/{id}")
-    public Optional<Frase> buscarPorId(@PathVariable int id) {
-        return fraseService.buscarPorId(id);
+    public Optional<FraseResponseDTO> buscarPorId(@PathVariable int id) {
+        Optional<Frase> fraseSalva = fraseService.buscarPorId(id);
+
+        return fraseSalva.map(frase -> new FraseResponseDTO(frase.getId(), frase.getFrase()));
     }
 
     @PostMapping("/frases")
-    public Frase criarFrase(@RequestBody Frase frase) {
-        return fraseService.salvar(frase);
+    public FraseResponseDTO criarFrase(@RequestBody FraseRequestDTO dto)
+    {
+        Frase frase = new Frase();
+        frase.setFrase(dto.getFrase());
+
+        Frase fraseSalva = fraseService.salvar(frase);
+
+        FraseResponseDTO resposta = new FraseResponseDTO();
+        resposta.setId(fraseSalva.getId());
+        resposta.setFrase(fraseSalva.getFrase());
+
+        return resposta;
     }
 
     @PutMapping("/frases/{id}")
