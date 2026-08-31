@@ -53,7 +53,7 @@ public class FraseController {
 
     @Operation(summary = "Lista as frases por página")
     @GetMapping("/frases/paginadas")
-    public Page<FraseResponseDTO> listarFrasesPaginadas(@RequestParam int pagina, @RequestParam int tamanho) {
+    public Page<FraseResponseDTO> listarFrasesPaginadas(@RequestParam Integer pagina, @RequestParam Integer tamanho) {
         Page<Frase> frasePaginada = fraseService.listarFrasesPaginadas(pagina, tamanho);
 
         return frasePaginada.map(this::converterParaResponseDTO);
@@ -61,7 +61,7 @@ public class FraseController {
 
     @Operation(summary = "Busca uma frase pelo ID")
     @GetMapping("/frases/{id}")
-    public FraseResponseDTO buscarPorId(@PathVariable int id) {
+    public FraseResponseDTO buscarPorId(@PathVariable Integer id) {
         Frase fraseSalva = fraseService.buscarPorId(id);
 
         return converterParaResponseDTO(fraseSalva);
@@ -78,7 +78,7 @@ public class FraseController {
 
     @Operation(summary = "Atualiza uma frase por ID")
     @PutMapping("/frases/{id}")
-    public FraseResponseDTO atualizarPorId(@PathVariable int id, @Valid @RequestBody FraseRequestDTO dto) {
+    public FraseResponseDTO atualizarPorId(@PathVariable Integer id, @Valid @RequestBody FraseRequestDTO dto) {
         Frase frase = converterParaEntity(dto);
         Frase fraseAtualizada = fraseService.atualizarPorId(id, frase);
 
@@ -87,7 +87,7 @@ public class FraseController {
 
     @Operation(summary = "Deleta uma frase por ID")
     @DeleteMapping("/frases/{id}")
-    public void deletarPorId(@PathVariable int id) {
+    public void deletarPorId(@PathVariable Integer id) {
         fraseService.deletarPorId(id);
     }
 

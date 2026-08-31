@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class FraseService {
 
-    private FraseRepository fraseRepository;
+    private final FraseRepository fraseRepository;
 
     public FraseService(FraseRepository fraseRepository) {
         this.fraseRepository = fraseRepository;

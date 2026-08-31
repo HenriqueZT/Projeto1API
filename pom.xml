@@ -11,21 +11,9 @@
 	<groupId>io.github.henriquezt</groupId>
 	<artifactId>devquotesapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	<name>DevQuotes API</name>
+	<description>API REST para gerenciamento e consulta de frases</description>
+
 	<properties>
 		<java.version>25</java.version>
 	</properties>
