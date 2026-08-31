@@ -10,8 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> tratarErroDeValidacao(
+    public ResponseEntity<ErrorValidationResponse> tratarErroDeValidacao(
             MethodArgumentNotValidException exception) {
+
+        String campo = exception
+                .getBindingResult()
+                .getFieldErrors()
+                .getFirst()
+                .getField();
 
         String mensagem = exception
                 .getBindingResult()
@@ -19,6 +25,8 @@ public class GlobalExceptionHandler {
                 .getFirst()
                 .getDefaultMessage();
 
-        return ResponseEntity.badRequest().body(mensagem);
+        ErrorValidationResponse erro = new ErrorValidationResponse(campo, mensagem);
+
+        return ResponseEntity.badRequest().body(erro);
     }
 }
