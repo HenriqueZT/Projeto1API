@@ -1,5 +1,6 @@
 package io.github.henriquezt.devquotesapi.service;
 
+import io.github.henriquezt.devquotesapi.exception.PhraseNotFoundException;
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.repository.FraseRepository;
 import org.springframework.data.domain.Page;
@@ -37,8 +38,11 @@ public class FraseService {
         return fraseRepository.findAll(pageable);
     }
 
-    public Optional<Frase> buscarPorId (Integer id) {
-        return fraseRepository.findById(id);
+    public Frase buscarPorId (Integer id) {
+        return fraseRepository
+                .findById(id)
+                .orElseThrow(()
+                        ->new PhraseNotFoundException("Frase não encontrada"));
     }
 
     public Frase salvar(Frase entity) {
@@ -55,7 +59,7 @@ public class FraseService {
             return fraseRepository.save(fraseAtual);
         }
 
-        return null;
+        throw new PhraseNotFoundException("Frase não encontrada");
     }
 
     public void deletarPorId(Integer id) {

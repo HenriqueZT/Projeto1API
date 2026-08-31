@@ -52,10 +52,10 @@ public class FraseController {
     }
 
     @GetMapping("/frases/{id}")
-    public Optional<FraseResponseDTO> buscarPorId(@PathVariable int id) {
-        Optional<Frase> fraseSalva = fraseService.buscarPorId(id);
+    public FraseResponseDTO buscarPorId(@PathVariable int id) {
+        Frase fraseSalva = fraseService.buscarPorId(id);
 
-        return fraseSalva.map(this::converterParaResponseDTO);
+        return converterParaResponseDTO(fraseSalva);
     }
 
     @PostMapping("/frases")

@@ -1,6 +1,6 @@
 package io.github.henriquezt.devquotesapi.exception;
 
-
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,5 +28,14 @@ public class GlobalExceptionHandler {
         ErrorValidationResponse erro = new ErrorValidationResponse(campo, mensagem);
 
         return ResponseEntity.badRequest().body(erro);
+    }
+
+    @ExceptionHandler(PhraseNotFoundException.class)
+    public ResponseEntity<String> tratarFraseNaoEncontrada(
+            PhraseNotFoundException exception) {
+
+        return ResponseEntity.status(
+                HttpStatus.NOT_FOUND)
+                .body(exception.getMessage());
     }
 }
