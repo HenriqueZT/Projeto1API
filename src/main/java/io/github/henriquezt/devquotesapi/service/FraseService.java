@@ -63,6 +63,11 @@ public class FraseService {
     }
 
     public void deletarPorId(Integer id) {
+
+
+        fraseRepository.findById(id)
+                        .orElseThrow(() -> new PhraseNotFoundException("Frase não encontrada"));
+
         fraseRepository.deleteById(id);
     }
 }
