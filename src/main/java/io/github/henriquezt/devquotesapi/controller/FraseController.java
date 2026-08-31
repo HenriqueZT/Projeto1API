@@ -4,13 +4,17 @@ import io.github.henriquezt.devquotesapi.dto.FraseRequestDTO;
 import io.github.henriquezt.devquotesapi.dto.FraseResponseDTO;
 import io.github.henriquezt.devquotesapi.model.Frase;
 import io.github.henriquezt.devquotesapi.service.FraseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@Tag(
+        name = "Frases",
+        description = "Operação para gerenciamento e consulta de frases")
 @RestController
 public class FraseController {
 
@@ -20,6 +24,7 @@ public class FraseController {
         this.fraseService = fraseService;
     }
 
+    @Operation(summary = "Busca uma frase pelo texto exato")
     @GetMapping("/frases/buscar")
     public List<FraseResponseDTO> buscarPorFrase(@RequestParam String frase) {
         List<Frase> fraseBuscada = fraseService.buscarPorFrase(frase);
@@ -28,6 +33,7 @@ public class FraseController {
                 this::converterParaResponseDTO).toList();
     }
 
+    @Operation(summary = "Busca frases contendo uma palavra")
     @GetMapping("/frases/buscar-contendo")
     public List<FraseResponseDTO> buscarPorFraseContida(@RequestParam String palavra) {
         List<Frase> fraseContida = fraseService.buscarPorFraseContida(palavra);
@@ -36,6 +42,7 @@ public class FraseController {
                 this::converterParaResponseDTO).toList();
     }
 
+    @Operation(summary = "Lista todas as frases")
     @GetMapping("/frases")
     public List<FraseResponseDTO> listarFrases() {
         List<Frase> frases = fraseService.listarFrases();
@@ -44,6 +51,7 @@ public class FraseController {
                 this::converterParaResponseDTO).toList();
     }
 
+    @Operation(summary = "Lista as frases por página")
     @GetMapping("/frases/paginadas")
     public Page<FraseResponseDTO> listarFrasesPaginadas(@RequestParam int pagina, @RequestParam int tamanho) {
         Page<Frase> frasePaginada = fraseService.listarFrasesPaginadas(pagina, tamanho);
@@ -51,6 +59,7 @@ public class FraseController {
         return frasePaginada.map(this::converterParaResponseDTO);
     }
 
+    @Operation(summary = "Busca uma frase pelo ID")
     @GetMapping("/frases/{id}")
     public FraseResponseDTO buscarPorId(@PathVariable int id) {
         Frase fraseSalva = fraseService.buscarPorId(id);
@@ -58,6 +67,7 @@ public class FraseController {
         return converterParaResponseDTO(fraseSalva);
     }
 
+    @Operation(summary = "Cria uma frase")
     @PostMapping("/frases")
     public FraseResponseDTO criarFrase(@Valid @RequestBody FraseRequestDTO dto) {
         Frase frase = converterParaEntity(dto);
@@ -66,6 +76,7 @@ public class FraseController {
         return converterParaResponseDTO(fraseSalva);
     }
 
+    @Operation(summary = "Atualiza uma frase por ID")
     @PutMapping("/frases/{id}")
     public FraseResponseDTO atualizarPorId(@PathVariable int id, @Valid @RequestBody FraseRequestDTO dto) {
         Frase frase = converterParaEntity(dto);
@@ -74,6 +85,7 @@ public class FraseController {
         return converterParaResponseDTO(fraseAtualizada);
     }
 
+    @Operation(summary = "Deleta uma frase por ID")
     @DeleteMapping("/frases/{id}")
     public void deletarPorId(@PathVariable int id) {
         fraseService.deletarPorId(id);
