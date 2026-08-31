@@ -142,7 +142,7 @@ Para executar o projeto localmente é necessário ter instalado:
 ### 1. Clone o repositório
 
 ```bash
-git clone URL_DO_SEU_REPOSITORIO
+git clone https://github.com/HenriqueZT/devquotes-api
 ```
 
 ### 2. Configure o banco de dados
