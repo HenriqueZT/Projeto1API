@@ -1,3 +1,51 @@
+# DevQuotes API
+
+API REST desenvolvida em Java com Spring Boot para gerenciamento e consulta de frases.
+
+O projeto implementa uma arquitetura em camadas, persistência de dados com MySQL e Spring Data JPA, validação de dados, tratamento global de exceções e documentação interativa utilizando Swagger/OpenAPI.
+
+## 🚀 Funcionalidades
+
+- Cadastro de frases
+- Listagem de frases
+- Busca de frase por ID
+- Busca por texto exato
+- Busca por palavras ou trechos
+- Atualização de frases
+- Exclusão de frases
+- Paginação de resultados
+- Ordenação de frases
+- Validação dos dados de entrada
+- Tratamento de erros com respostas HTTP adequadas
+- Documentação interativa da API com Swagger
+
+## 🛠️ Tecnologias utilizadas
+
+- Java 25
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- MySQL
+- Maven
+- Lombok
+- Bean Validation
+- Springdoc OpenAPI / Swagger UI
+
+## 🏗️ Arquitetura
+
+O projeto utiliza uma organização em camadas para separar as responsabilidades da aplicação:
+
+```text
+controller  → recebe e responde às requisições HTTP
+service     → concentra as regras e operações da aplicação
+repository  → realiza o acesso aos dados
+model       → representa as entidades persistidas
+dto         → define os dados de entrada e saída da API
+exception   → centraliza o tratamento de erros
+config      → contém configurações da aplicação
+```
+
 O fluxo principal de uma requisição segue:
 
 ```text
