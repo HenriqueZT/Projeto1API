@@ -12,6 +12,6 @@ import jakarta.validation.constraints.Size;
 public class FraseRequestDTO {
 
     @NotBlank(message = "A frase não pode estar vazia")
-    @Size(min = 3, max = 255, message = "A frase dever ter entre 3 e 255 caracteres")
+    @Size(min = 3, max = 255, message = "A frase deve ter entre 3 e 255 caracteres")
     private String frase;
 }
